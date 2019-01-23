@@ -53,13 +53,14 @@ class                   BackgroundView: UIView
     }()
     
     func                animateLogoUp() {
-        let             offset = frame.height * 0.5 - frame.height * 0.22
+        let             offset = frame.height * 0.5 - frame.height * 0.30
         
         UIView.animate(withDuration: 1, delay: 0.25, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -offset)
         })
         UIView.animate(withDuration: 0.7, delay: 0.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.root.loginContainer.alpha = 1
+            self.root.searchButton.alpha = 1
         })
     }
     
