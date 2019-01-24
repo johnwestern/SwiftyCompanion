@@ -14,6 +14,7 @@
 		7981A1D621F996970084B088 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7981A1D521F996970084B088 /* APIManager.swift */; };
 		7981A1D921F9AEAB0084B088 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7981A1D821F9AEAB0084B088 /* Student.swift */; };
 		79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */; };
+		79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */; };
 		79F54E5321F85C340020A008 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F54E5221F85C340020A008 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		7981A1D521F996970084B088 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		7981A1D821F9AEAB0084B088 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesDownloader.swift; sourceTree = "<group>"; };
+		79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStudentViewController.swift; sourceTree = "<group>"; };
 		79F54E5221F85C340020A008 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				791CC36421F8551500B93228 /* SearchStudentController.swift */,
+				79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				791CC36521F8551500B93228 /* SearchStudentController.swift in Sources */,
 				79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */,
 				791CC36321F8551400B93228 /* AppDelegate.swift in Sources */,
+				79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

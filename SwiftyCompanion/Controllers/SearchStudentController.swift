@@ -61,12 +61,29 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         setupView()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    var displayVC: DisplayStudentViewController?
+    var lockSearch = false
+    
     @objc func      handleSearch() {
+        guard lockSearch == false else { return }
+        lockSearch = true
         if let login = loginTF.text, login != "", !login.contains(" ") {
             APIManager().getStudent(login.lowercased()) { (student) in
-                let imageview = UIImageView()
-                print(student.email!)
-                print(student.cursus![0].level!)
+                guard let picURL = student.picture else { print("student badly formatted"); return }
+                UIImageView().getImageFromURLCacheCompletion(urlString: picURL, completion: { (image) in
+                    self.loginTF.resignFirstResponder()
+                    let vc = DisplayStudentViewController(frame: self.view.frame, student: student, studentPicture: image, rootVC: self)
+                    self.displayVC = vc
+                    self.addChildViewController(vc)
+                    self.view.addSubview(vc.view)
+                    vc.view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
+                    self.animateEverythingDown()
+                })
             }
         } else {
             print("user does not exists")
@@ -74,10 +91,32 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         
     }
     
+    func            animateEverythingBackUp() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            self.loginContainer.transform = .identity
+            self.searchButton.transform = .identity
+            self.background?.logoImageView.transform = CGAffineTransform(translationX: 0, y: -(self.view.frame.height * 0.5 - self.view.frame.height * 0.30))
+        }) { (true) in
+            self.displayVC?.view.removeFromSuperview()
+            self.displayVC?.removeFromParentViewController()
+        }
+    }
+    
+    func            animateEverythingDown() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            self.loginContainer.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
+            self.searchButton.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
+            self.background?.logoImageView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
+        }) { (true) in
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+                self.displayVC?.view.transform = .identity
+                self.lockSearch = false
+            })
+        }
+        
+    }
+    
     func            setupView() {
-        
-        
-        
         view.addSubview(loginContainer)
         loginContainer.addSubview(loginTF)
         view.addSubview(searchButton)

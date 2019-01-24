@@ -17,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         application.statusBarStyle = .lightContent
-        window = UIWindow()
-        window?.makeKeyAndVisible()
+        
         APIManager().getToken { (tok) in
             guard let toto = tok else { print("error while requesting token"); return }
             token = toto
+            self.window = UIWindow()
+            self.window?.makeKeyAndVisible()
             self.window?.rootViewController = SearchStudentController()
         }
-        window?.rootViewController = SearchStudentController()
         return true
     }
 
