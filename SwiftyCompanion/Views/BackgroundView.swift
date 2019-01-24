@@ -88,10 +88,14 @@ class                   BackgroundView: UIView
         addSubview(logoImageView)
         
         blurEffectView.frame = frame
-        
+        let bottomConstraint: NSLayoutConstraint = backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        print(frame.height)
+        if (frame.height < 740) {
+            bottomConstraint.constant = 33
+        }
         NSLayoutConstraint.activate([
+            bottomConstraint,
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             

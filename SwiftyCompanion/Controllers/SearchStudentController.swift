@@ -62,10 +62,9 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
     }
     
     @objc func      handleSearch() {
-        if var login = loginTF.text, login != "", !login.contains(" ") {
+        if let login = loginTF.text, login != "", !login.contains(" ") {
             APIManager().getStudent(login.lowercased()) { (student) in
                 let imageview = UIImageView()
-                imageview.lo
                 print(student.email!)
                 print(student.cursus![0].level!)
             }
