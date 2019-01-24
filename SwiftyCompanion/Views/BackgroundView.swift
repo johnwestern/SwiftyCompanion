@@ -10,8 +10,6 @@ import UIKit
 
 class                   BackgroundView: UIView
 {
-    var                 topConstraint: NSLayoutConstraint?
-    var                 bottomConstraint: NSLayoutConstraint?
     let                 root: SearchStudentController
 
     init(frame: CGRect, root: SearchStudentController) {
@@ -72,21 +70,16 @@ class                   BackgroundView: UIView
     
     func                handleAnimation() {
         blurEffectView.alpha = 0
-        logoImageView.alpha = 0
-        
         UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
             self.blurEffectView.alpha = 0.9
-            self.topConstraint?.constant = -100
-            self.bottomConstraint?.constant = 100
-            self.layoutIfNeeded()
-            
-        }) { (true) in
-            self.backgroundImageView.rotate360Degrees(duration: 125)
-            UIView.animate(withDuration: 0.5, animations: {
-                self.logoImageView.alpha = 1
+            self.backgroundImageView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+            UIView.animate(withDuration: 0.6, animations: {
                 self.animateLogoUp()
             })
+        }) { (true) in
+            self.backgroundImageView.rotate360Degrees(duration: 133)
         }
+        
     }
     
     func                setupView() {
@@ -95,12 +88,10 @@ class                   BackgroundView: UIView
         addSubview(logoImageView)
         
         blurEffectView.frame = frame
-        backgroundImageView.frame = frame
         
-        topConstraint = backgroundImageView.topAnchor.constraint(equalTo: topAnchor)
-        bottomConstraint = backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         NSLayoutConstraint.activate([
-            topConstraint!, bottomConstraint!,
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
@@ -109,6 +100,7 @@ class                   BackgroundView: UIView
             logoImageView.widthAnchor.constraint(equalToConstant: frame.width - 100),
             logoImageView.heightAnchor.constraint(equalToConstant: 130)
         ])
+        layoutIfNeeded()
         handleAnimation()
     }
 }

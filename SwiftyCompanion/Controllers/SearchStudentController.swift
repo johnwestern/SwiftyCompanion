@@ -57,17 +57,28 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
     override func   viewDidLoad() {
         super.viewDidLoad()
         
+        print(token)
         setupView()
     }
     
     @objc func      handleSearch() {
-        print("here we handle the search")
+        if var login = loginTF.text, login != "", !login.contains(" ") {
+            APIManager().getStudent(login.lowercased()) { (student) in
+                let imageview = UIImageView()
+                imageview.lo
+                print(student.email!)
+                print(student.cursus![0].level!)
+            }
+        } else {
+            print("user does not exists")
+        }
+        
     }
     
     func            setupView() {
-        background = BackgroundView(frame: view.frame, root: self)
         
-        view.addSubview(background!)
+        
+        
         view.addSubview(loginContainer)
         loginContainer.addSubview(loginTF)
         view.addSubview(searchButton)
@@ -93,6 +104,10 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
             searchButton.trailingAnchor.constraint(equalTo: loginContainer.trailingAnchor),
             searchButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+        background = BackgroundView(frame: view.frame, root: self)
+        view.addSubview(background!)
+        background?.layer.zPosition = -1
+        background?.isUserInteractionEnabled = false
     }
 }
 

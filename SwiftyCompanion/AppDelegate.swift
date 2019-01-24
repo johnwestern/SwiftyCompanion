@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .lightContent
         window = UIWindow()
         window?.makeKeyAndVisible()
+        APIManager().getToken { (tok) in
+            guard let toto = tok else { print("error while requesting token"); return }
+            token = toto
+            self.window?.rootViewController = SearchStudentController()
+        }
         window?.rootViewController = SearchStudentController()
         return true
     }
