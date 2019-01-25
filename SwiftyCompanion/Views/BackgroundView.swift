@@ -53,10 +53,11 @@ class                   BackgroundView: UIView
     func                animateLogoUp() {
         let             offset = frame.height * 0.25
         
-        UIView.animate(withDuration: 1, delay: 0.25, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -offset)
         })
-        UIView.animate(withDuration: 0.7, delay: 0.5, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.root.loginContainer.alpha = 1
             self.root.searchButton.alpha = 1
         })
@@ -70,16 +71,13 @@ class                   BackgroundView: UIView
     
     func                handleAnimation() {
         blurEffectView.alpha = 0
-        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+        
+        self.animateLogoUp()
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.blurEffectView.alpha = 0.9
             self.backgroundImageView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-            UIView.animate(withDuration: 0.6, animations: {
-                self.animateLogoUp()
-            })
-        }) { (true) in
             self.backgroundImageView.rotate360Degrees(duration: 100)
-        }
-        
+        })
     }
     
     func                setupView() {

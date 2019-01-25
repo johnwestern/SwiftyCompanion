@@ -15,14 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var orientationLock = UIInterfaceOrientationMask.all
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        application.statusBarStyle = .lightContent
-        
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        window?.rootViewController = LoadingAppController()
         APIManager().getToken { (tok) in
             guard let toto = tok else { print("error while requesting token"); return }
             token = toto
-            self.window = UIWindow()
-            self.window?.makeKeyAndVisible()
             self.window?.rootViewController = SearchStudentController()
         }
         return true

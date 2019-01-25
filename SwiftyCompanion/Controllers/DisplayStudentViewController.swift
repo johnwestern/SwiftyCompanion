@@ -20,7 +20,7 @@ class DisplayStudentViewController: UIViewController {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.masksToBounds = true
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 60
+        iv.layer.cornerRadius = 50
         iv.layer.borderColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1).cgColor
         iv.layer.borderWidth = 2
         iv.contentMode = .scaleAspectFill
@@ -80,7 +80,7 @@ class DisplayStudentViewController: UIViewController {
     
     let levelLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -104,7 +104,7 @@ class DisplayStudentViewController: UIViewController {
         pro.translatesAutoresizingMaskIntoConstraints = false
         pro.layer.masksToBounds = true
         pro.clipsToBounds = true
-        pro.layer.cornerRadius = 12
+        pro.layer.cornerRadius = 11
         pro.progressTintColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1)
         return pro
     }()
@@ -150,7 +150,11 @@ class DisplayStudentViewController: UIViewController {
         if let email = student.email {
             emailLabel.text = email
         }
-        if let phone = student.phone {
+        if var phone = student.phone {
+            phone = phone.replacingOccurrences(of: "+33", with: "0")
+            if phone.count == 10 {
+                phone = phone.inserting(separator: " ", every: 2)
+            }
             phoneLabel.text = phone
         }
         if let curses = student.cursus, curses.count >= 1, let grade = curses[0].grade {
@@ -184,35 +188,35 @@ class DisplayStudentViewController: UIViewController {
         NSLayoutConstraint.activate([
             studImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             studImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
-            studImageView.widthAnchor.constraint(equalToConstant: 120),
-            studImageView.heightAnchor.constraint(equalToConstant: 120),
+            studImageView.widthAnchor.constraint(equalToConstant: 100),
+            studImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -38),
             downButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downButton.widthAnchor.constraint(equalToConstant: 44),
-            downButton.heightAnchor.constraint(equalToConstant: 44),
+            downButton.widthAnchor.constraint(equalToConstant: 40),
+            downButton.heightAnchor.constraint(equalToConstant: 40),
             
             loginLabel.topAnchor.constraint(equalTo: studImageView.topAnchor, constant: 8),
             loginLabel.leadingAnchor.constraint(equalTo: studImageView.trailingAnchor, constant: 27),
             loginLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            loginLabel.heightAnchor.constraint(equalToConstant: 26),
+            loginLabel.heightAnchor.constraint(equalToConstant: 23),
             
             nameLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            nameLabel.heightAnchor.constraint(equalToConstant: 26),
+            nameLabel.heightAnchor.constraint(equalToConstant: 23),
             
             emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             emailLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
             emailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            emailLabel.heightAnchor.constraint(equalToConstant: 26),
+            emailLabel.heightAnchor.constraint(equalToConstant: 23),
             
             phoneLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor),
             phoneLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
             phoneLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            phoneLabel.heightAnchor.constraint(equalToConstant: 26),
+            phoneLabel.heightAnchor.constraint(equalToConstant: 23),
             
-            gradeLabel.topAnchor.constraint(equalTo: studImageView.bottomAnchor, constant: 24),
+            gradeLabel.topAnchor.constraint(equalTo: studImageView.bottomAnchor, constant: 10),
             gradeLabel.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),
             gradeLabel.trailingAnchor.constraint(equalTo: studImageView.trailingAnchor),
             gradeLabel.heightAnchor.constraint(equalToConstant: 26),
@@ -220,16 +224,29 @@ class DisplayStudentViewController: UIViewController {
             progressBar.topAnchor.constraint(equalTo: gradeLabel.bottomAnchor, constant: 10),
             progressBar.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -27),
-            progressBar.heightAnchor.constraint(equalToConstant: 24),
+            progressBar.heightAnchor.constraint(equalToConstant: 22),
             
             levelLabel.centerXAnchor.constraint(equalTo: progressBar.centerXAnchor),
             levelLabel.centerYAnchor.constraint(equalTo: progressBar.centerYAnchor),
             levelLabel.widthAnchor.constraint(equalToConstant: 200),
-            levelLabel.heightAnchor.constraint(equalToConstant: 26),
+            levelLabel.heightAnchor.constraint(equalToConstant: 22),
             
             
             
             
         ])
+    }
+}
+
+extension StringProtocol where Self: RangeReplaceableCollection {
+    mutating func insert(separator: String, every n: Int) {
+        indices.reversed().forEach {
+            if $0 != startIndex { if distance(from: startIndex, to: $0) % n == 0 { insert(contentsOf: separator, at: $0) } }
+        }
+    }
+    func inserting(separator: String, every n: Int) -> Self {
+        var string = self
+        string.insert(separator: separator, every: n)
+        return string
     }
 }
