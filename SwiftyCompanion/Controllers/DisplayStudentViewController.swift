@@ -8,26 +8,17 @@
 
 import UIKit
 
-class DisplayStudentViewController: UIViewController {
+class               DisplayStudentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 
-    let studentPicture: UIImage
-    let student: Student
-    let rootVC: SearchStudentController
+    let             studentPicture: UIImage
+    let             student: Student
+    let             rootVC: SearchStudentController
+    var             studentHeaderView: StudentHeaderView?
+    var             tableView: UITableView?
     
-    let             studImageView: UIImageView = {
-        let          iv = UIImageView()
-        
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.layer.masksToBounds = true
-        iv.clipsToBounds = true
-        iv.layer.cornerRadius = 50
-        iv.layer.borderColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1).cgColor
-        iv.layer.borderWidth = 2
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
+    let             headerHeight: CGFloat = 200
     
-    let downButton: UIButton = {
+    let             downButton: UIButton = {
         let button = UIButton(type: .system)
         let icon = UIImage(named: "downArrow_icon")
         let tintedIcon = icon!.withRenderingMode(.alwaysTemplate)
@@ -36,77 +27,6 @@ class DisplayStudentViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = true
         return button
-    }()
-    
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let loginLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let emailLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let phoneLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let levelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let gradeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let progressBar: UIProgressView = {
-        let pro = UIProgressView()
-        
-        pro.translatesAutoresizingMaskIntoConstraints = false
-        pro.layer.masksToBounds = true
-        pro.clipsToBounds = true
-        pro.layer.cornerRadius = 11
-        pro.progressTintColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1)
-        return pro
     }()
     
     init(frame: CGRect, student: Student, studentPicture: UIImage, rootVC: SearchStudentController) {
@@ -122,11 +42,19 @@ class DisplayStudentViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    let cellId = "cellId"
     
     override func   viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView = UITableView(frame: view.frame)
+        tableView?.separatorStyle = .none
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        tableView?.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 45, right: 0)
+        tableView?.contentOffset = CGPoint(x: 0, y: -headerHeight)
+        tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView?.backgroundColor = .clear
         setupView()
         
     }
@@ -139,109 +67,59 @@ class DisplayStudentViewController: UIViewController {
         }
     }
     
-    fileprivate func fillInfos() {
-        studImageView.image = studentPicture
-        if let firstName = student.firstName, let lastName = student.lastName {
-            nameLabel.text = firstName + " " + lastName
-        }
-        if let login = student.login {
-            loginLabel.text = login
-        }
-        if let email = student.email {
-            emailLabel.text = email
-        }
-        if var phone = student.phone {
-            phone = phone.replacingOccurrences(of: "+33", with: "0")
-            if phone.count == 10 {
-                phone = phone.inserting(separator: " ", every: 2)
-            }
-            phoneLabel.text = phone
-        }
-        if let curses = student.cursus, curses.count >= 1, let grade = curses[0].grade {
-            gradeLabel.text = grade
-        }
-        if let curses = student.cursus, curses.count >= 1, let level = curses[0].level {
-            let ent = Int(floor(Double(level)))
-            let percent = level - Float(ent)
-            levelLabel.text = "level: " + String(ent) + " - " + String(Int(percent * 100)) + "%"
-            progressBar.progress = percent
-        }
-        
-    }
     
     func            setupView() {
+        studentHeaderView = StudentHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 168), studentPic: studentPicture, student: student)
+        studentHeaderView?.translatesAutoresizingMaskIntoConstraints = false
         
-        fillInfos()
-        
-        view.addSubview(studImageView)
-        view.addSubview(nameLabel)
-        view.addSubview(loginLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(phoneLabel)
-        view.addSubview(progressBar)
-        view.addSubview(levelLabel)
-        view.addSubview(gradeLabel)
-        
+        view.addSubview(studentHeaderView!)
+        view.addSubview(tableView!)
         view.addSubview(downButton)
         
         downButton.addTarget(self, action: #selector(backToSearch), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            studImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            studImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
-            studImageView.widthAnchor.constraint(equalToConstant: 100),
-            studImageView.heightAnchor.constraint(equalToConstant: 100),
-            
             downButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -38),
             downButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             downButton.widthAnchor.constraint(equalToConstant: 40),
             downButton.heightAnchor.constraint(equalToConstant: 40),
             
-            loginLabel.topAnchor.constraint(equalTo: studImageView.topAnchor, constant: 8),
-            loginLabel.leadingAnchor.constraint(equalTo: studImageView.trailingAnchor, constant: 27),
-            loginLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            loginLabel.heightAnchor.constraint(equalToConstant: 23),
-            
-            nameLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            nameLabel.heightAnchor.constraint(equalToConstant: 23),
-            
-            emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            emailLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
-            emailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            emailLabel.heightAnchor.constraint(equalToConstant: 23),
-            
-            phoneLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor),
-            phoneLabel.leadingAnchor.constraint(equalTo: loginLabel.leadingAnchor),
-            phoneLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            phoneLabel.heightAnchor.constraint(equalToConstant: 23),
-            
-            gradeLabel.topAnchor.constraint(equalTo: studImageView.bottomAnchor, constant: 10),
-            gradeLabel.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),
-            gradeLabel.trailingAnchor.constraint(equalTo: studImageView.trailingAnchor),
-            gradeLabel.heightAnchor.constraint(equalToConstant: 26),
-            
-            progressBar.topAnchor.constraint(equalTo: gradeLabel.bottomAnchor, constant: 10),
-            progressBar.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -27),
-            progressBar.heightAnchor.constraint(equalToConstant: 22),
-            
-            levelLabel.centerXAnchor.constraint(equalTo: progressBar.centerXAnchor),
-            levelLabel.centerYAnchor.constraint(equalTo: progressBar.centerYAnchor),
-            levelLabel.widthAnchor.constraint(equalToConstant: 200),
-            levelLabel.heightAnchor.constraint(equalToConstant: 22),
-            
-            
-            
-            
+            studentHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            studentHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            studentHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            studentHeaderView!.heightAnchor.constraint(equalToConstant: 168),
         ])
     }
+}
+
+extension       DisplayStudentViewController {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 300.0
+        }
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        cell.textLabel?.text = "Ceci est un test"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
 }
 
 extension StringProtocol where Self: RangeReplaceableCollection {
     mutating func insert(separator: String, every n: Int) {
         indices.reversed().forEach {
-            if $0 != startIndex { if distance(from: startIndex, to: $0) % n == 0 { insert(contentsOf: separator, at: $0) } }
+            if $0 != startIndex { if Int(distance(from: startIndex, to: $0)) % n == 0 { insert(contentsOf: separator, at: $0) } }
         }
     }
     func inserting(separator: String, every n: Int) -> Self {

@@ -8,9 +8,16 @@
 
 import UIKit
 
+class Skill: Codable {
+    var id: Int?
+    var name: String?
+    var level: Float?
+}
+
 class Cursus: Codable {
     var grade: String?
     var level: Float?
+    var skills: [Skill]
 }
 
 class Student: Codable {

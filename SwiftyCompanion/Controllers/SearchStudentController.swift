@@ -9,7 +9,10 @@
 import UIKit
 
 class               SearchStudentController: UIViewController, UITextFieldDelegate {
+    
     var             background: BackgroundView?
+    private let     headerHeight: CGFloat = 178
+    var             tableView: UITableView?
     
     let             loginContainer: UIView = {
         let         iv = UIView()
@@ -38,7 +41,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         
         button.backgroundColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1)
         button.layer.cornerRadius = 10
-        button.setAttributedTitle(NSAttributedString(string: "Search", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .heavy)]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "Search", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15, weight: .heavy)]), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -58,11 +61,13 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         super.viewDidLoad()
         
         print(token)
+        loginTF.delegate = self
         setupView()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        handleSearch()
         return true
     }
     
@@ -74,7 +79,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         lockSearch = true
         if let login = loginTF.text, login != "", !login.contains(" ") {
             APIManager().getStudent(login.lowercased()) { (student) in
-                guard let picURL = student.picture else { print("student badly formatted"); return }
+                guard let picURL = student.picture else { print("student badly formatted"); self.lockSearch = false; return }
                 UIImageView().getImageFromURLCacheCompletion(urlString: picURL, completion: { (image) in
                     self.loginTF.resignFirstResponder()
                     let vc = DisplayStudentViewController(frame: self.view.frame, student: student, studentPicture: image, rootVC: self)
@@ -86,6 +91,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
                 })
             }
         } else {
+            lockSearch = false
             print("user does not exists")
         }
         

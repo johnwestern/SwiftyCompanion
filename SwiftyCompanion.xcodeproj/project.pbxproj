@@ -11,11 +11,13 @@
 		791CC36521F8551500B93228 /* SearchStudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791CC36421F8551500B93228 /* SearchStudentController.swift */; };
 		791CC36A21F8551500B93228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791CC36921F8551500B93228 /* Assets.xcassets */; };
 		791CC36D21F8551500B93228 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791CC36B21F8551500B93228 /* LaunchScreen.storyboard */; };
+		7976B44E21FB372900F8E467 /* StudentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976B44D21FB372900F8E467 /* StudentHeaderView.swift */; };
 		7981A1D621F996970084B088 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7981A1D521F996970084B088 /* APIManager.swift */; };
 		7981A1D921F9AEAB0084B088 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7981A1D821F9AEAB0084B088 /* Student.swift */; };
 		7982899321FB11B000BDEA2B /* LoadingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7982899221FB11B000BDEA2B /* LoadingAppController.swift */; };
 		79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */; };
 		79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */; };
+		79D9F50221FB4EE000313E3B /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D9F50121FB4EE000313E3B /* SkillsCell.swift */; };
 		79F54E5321F85C340020A008 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F54E5221F85C340020A008 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,11 +28,13 @@
 		791CC36921F8551500B93228 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		791CC36C21F8551500B93228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		791CC36E21F8551500B93228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7976B44D21FB372900F8E467 /* StudentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentHeaderView.swift; sourceTree = "<group>"; };
 		7981A1D521F996970084B088 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		7981A1D821F9AEAB0084B088 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		7982899221FB11B000BDEA2B /* LoadingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAppController.swift; sourceTree = "<group>"; };
 		79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesDownloader.swift; sourceTree = "<group>"; };
 		79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStudentViewController.swift; sourceTree = "<group>"; };
+		79D9F50121FB4EE000313E3B /* SkillsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
 		79F54E5221F85C340020A008 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +68,7 @@
 		791CC36121F8551400B93228 /* SwiftyCompanion */ = {
 			isa = PBXGroup;
 			children = (
+				79D9F50021FB4D7200313E3B /* Cells */,
 				7981A1D721F9AE8E0084B088 /* Models */,
 				79C0EACE21F9051E000671C2 /* Managers */,
 				79F54E5121F8568D0020A008 /* Extensions */,
@@ -93,6 +98,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		79D9F50021FB4D7200313E3B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				79D9F50121FB4EE000313E3B /* SkillsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		79F54E4E21F856690020A008 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				79F54E5221F85C340020A008 /* BackgroundView.swift */,
+				7976B44D21FB372900F8E467 /* StudentHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,12 +204,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7976B44E21FB372900F8E467 /* StudentHeaderView.swift in Sources */,
 				7982899321FB11B000BDEA2B /* LoadingAppController.swift in Sources */,
 				7981A1D621F996970084B088 /* APIManager.swift in Sources */,
 				7981A1D921F9AEAB0084B088 /* Student.swift in Sources */,
 				79F54E5321F85C340020A008 /* BackgroundView.swift in Sources */,
 				791CC36521F8551500B93228 /* SearchStudentController.swift in Sources */,
 				79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */,
+				79D9F50221FB4EE000313E3B /* SkillsCell.swift in Sources */,
 				791CC36321F8551400B93228 /* AppDelegate.swift in Sources */,
 				79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */,
 			);
