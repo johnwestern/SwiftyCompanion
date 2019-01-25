@@ -22,7 +22,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         return iv
     }()
 
-    let             loginTF : UITextField = {
+    let             loginTF: UITextField = {
         let tf = UITextField()
         tf.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         tf.returnKeyType = .done

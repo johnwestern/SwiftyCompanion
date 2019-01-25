@@ -51,7 +51,7 @@ class                   BackgroundView: UIView
     }()
     
     func                animateLogoUp() {
-        let             offset = frame.height * 0.5 - frame.height * 0.30
+        let             offset = frame.height * 0.25
         
         UIView.animate(withDuration: 1, delay: 0.25, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.logoImageView.transform = CGAffineTransform(translationX: 0, y: -offset)
@@ -77,7 +77,7 @@ class                   BackgroundView: UIView
                 self.animateLogoUp()
             })
         }) { (true) in
-            self.backgroundImageView.rotate360Degrees(duration: 133)
+            self.backgroundImageView.rotate360Degrees(duration: 100)
         }
         
     }
@@ -89,7 +89,6 @@ class                   BackgroundView: UIView
         
         blurEffectView.frame = frame
         let bottomConstraint: NSLayoutConstraint = backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        print(frame.height)
         if (frame.height < 740) {
             bottomConstraint.constant = 33
         }
