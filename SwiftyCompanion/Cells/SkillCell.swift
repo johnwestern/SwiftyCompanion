@@ -55,55 +55,60 @@ class           SkillCell: UICollectionViewCell {
         case "Algorithms & AI":
             skillLabel.text = "AI"
         case "Company experience":
-            skillLabel.text = "company"
+            skillLabel.text = "Company"
         case "Adaptation & creativity":
-            skillLabel.text = "creative"
+            skillLabel.text = "Creative"
         case "Graphics":
-            skillLabel.text = "graph"
+            skillLabel.text = "Graph"
         case "Security":
-            skillLabel.text = "secu"
+            skillLabel.text = "Secu"
         case "Rigor":
-            skillLabel.text = "rigor"
+            skillLabel.text = "Rigor"
         case "Unix":
-            skillLabel.text = "unix"
+            skillLabel.text = "Unix"
         case "Technology integration":
-            skillLabel.text = "tech inte"
+            skillLabel.text = "Tech Integration"
         case "Imperative programming":
-            skillLabel.text = "Imp prog"
+            skillLabel.text = "Imperative\nProg"
         case "Organization":
-            skillLabel.text = "orga"
+            skillLabel.text = "Orga"
         case "DB & Data":
             skillLabel.text = "DB"
         case "Web":
-            skillLabel.text = "web"
+            skillLabel.text = "Web"
         case "Group & interpersonal":
-            skillLabel.text = "group"
+            skillLabel.text = "Group"
         case "Object-oriented programming":
-            skillLabel.text = "obj prog"
+            skillLabel.text = "Object-o\nProg"
+        case "Network & system administration":
+            skillLabel.text = "Network"
         case "Parallel computing":
-            skillLabel.text = "para comp"
+            skillLabel.text = "Parallel\nComp"
         default:
             skillLabel.text = skillName
         }
     }
     
+    var progressCircle: ProgressCircleView?
+    
     func setupViews() {
         backgroundColor = .clear
-        let progressCircle = ProgressCircleView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        progressCircle.updateProgress(CGFloat(skill!.level! - Float(Int(floor(Double(skill!.level!))))))
+        progressCircle?.removeFromSuperview()
+        progressCircle = ProgressCircleView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        progressCircle!.updateProgress(CGFloat(skill!.level! - Float(Int(floor(Double(skill!.level!))))))
         levelLabel.text = levelToString(skill!.level!)
         fillRightSkill(skill!.name!)
-        addSubview(progressCircle)
+        addSubview(progressCircle!)
         addSubview(levelLabel)
         addSubview(skillLabel)
         
         NSLayoutConstraint.activate([
-            levelLabel.topAnchor.constraint(equalTo: progressCircle.topAnchor),
-            levelLabel.bottomAnchor.constraint(equalTo: progressCircle.bottomAnchor),
-            levelLabel.leadingAnchor.constraint(equalTo: progressCircle.leadingAnchor),
-            levelLabel.trailingAnchor.constraint(equalTo: progressCircle.trailingAnchor),
+            levelLabel.topAnchor.constraint(equalTo: progressCircle!.topAnchor),
+            levelLabel.bottomAnchor.constraint(equalTo: progressCircle!.bottomAnchor),
+            levelLabel.leadingAnchor.constraint(equalTo: progressCircle!.leadingAnchor),
+            levelLabel.trailingAnchor.constraint(equalTo: progressCircle!.trailingAnchor),
             
-            skillLabel.topAnchor.constraint(equalTo: progressCircle.bottomAnchor),
+            skillLabel.topAnchor.constraint(equalTo: progressCircle!.bottomAnchor),
             skillLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             skillLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             skillLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)

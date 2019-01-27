@@ -16,7 +16,7 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
     var             studentHeaderView: StudentHeaderView?
     var             tableView: UITableView?
     
-    let             headerHeight: CGFloat = 200
+    let             headerHeight: CGFloat = 224
     
     let             downButton: UIButton = {
         let button = UIButton(type: .system)
@@ -44,12 +44,14 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
     
     private let     cellId = "cellId"
     private let     skillCellId = "skillCellId"
+    var             maxOffset: CGFloat = -240.0
     
     override func   viewDidLoad() {
         super.viewDidLoad()
         
         tableView = UITableView(frame: view.frame)
         tableView?.separatorStyle = .none
+        tableView?.alwaysBounceVertical = true
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView?.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 45, right: 0)
@@ -58,6 +60,7 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView?.register(SkillsCell.self, forCellReuseIdentifier: skillCellId)
         tableView?.backgroundColor = .clear
+        
         setupView()
         
     }
@@ -70,14 +73,23 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         }
     }
     
+    let             coverView: UIVisualEffectView = {
+        let         visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        visualEffectView.isUserInteractionEnabled = false
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        return visualEffectView
+    }()
     
     func            setupView() {
         studentHeaderView = StudentHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 168), studentPic: studentPicture, student: student)
         studentHeaderView?.translatesAutoresizingMaskIntoConstraints = false
+        studentHeaderView?.clipsToBounds = true
         
         view.addSubview(studentHeaderView!)
         view.addSubview(tableView!)
         view.addSubview(downButton)
+        studentHeaderView?.addSubview(coverView)
         
         downButton.addTarget(self, action: #selector(backToSearch), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -86,21 +98,38 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
             downButton.widthAnchor.constraint(equalToConstant: 40),
             downButton.heightAnchor.constraint(equalToConstant: 40),
             
-            studentHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            studentHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             studentHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             studentHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             studentHeaderView!.heightAnchor.constraint(equalToConstant: 168),
+            
+            coverView.topAnchor.constraint(equalTo: studentHeaderView!.topAnchor),
+            coverView.bottomAnchor.constraint(equalTo: studentHeaderView!.bottomAnchor),
+            coverView.leadingAnchor.constraint(equalTo: studentHeaderView!.leadingAnchor),
+            coverView.trailingAnchor.constraint(equalTo: studentHeaderView!.trailingAnchor)
         ])
     }
+    
+    var maxOffsetSet = false
 }
 
 extension       DisplayStudentViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
+            maxOffset = maxOffsetSet ? maxOffset : self.tableView!.contentOffset.y
             return 190.0
         }
         return 50
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard tableView != nil, studentHeaderView != nil else { return }
+        print(coverView.frame.minY)
+        print(-maxOffset + (maxOffset - tableView!.contentOffset.y) - studentHeaderView!.frame.minY)
+        var delta = -maxOffset + (maxOffset - tableView!.contentOffset.y) - studentHeaderView!.frame.minY
+        delta = delta < 0 ? 0 : delta
+        coverView.transform = CGAffineTransform(translationX: 0, y: delta)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,7 +150,7 @@ extension       DisplayStudentViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
 }

@@ -38,23 +38,26 @@ class SkillsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    var skillsCollectionView: SkillsCollectionView?
+    
     fileprivate func setupView() {
         backgroundColor = .clear
-        let skillsCollectionView = SkillsCollectionView(skills!, .horizontal)
-        skillsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        skillsCollectionView?.removeFromSuperview()
+        skillsCollectionView = SkillsCollectionView(skills!, .horizontal)
+        skillsCollectionView!.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(label)
-        addSubview(skillsCollectionView)
+        addSubview(skillsCollectionView!)
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor),
             label.trailingAnchor.constraint(equalTo: trailingAnchor),
             label.heightAnchor.constraint(equalToConstant: 40),
-            skillsCollectionView.topAnchor.constraint(equalTo: label.bottomAnchor),
-            skillsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            skillsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            skillsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            skillsCollectionView!.topAnchor.constraint(equalTo: label.bottomAnchor),
+            skillsCollectionView!.leadingAnchor.constraint(equalTo: leadingAnchor),
+            skillsCollectionView!.trailingAnchor.constraint(equalTo: trailingAnchor),
+            skillsCollectionView!.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
