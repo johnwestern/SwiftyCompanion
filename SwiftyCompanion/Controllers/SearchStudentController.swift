@@ -39,7 +39,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
     let searchButton: UIButton = {
         let button = UIButton(type: .system)
         
-        button.backgroundColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1)
+        button.backgroundColor = .swifty
         button.layer.cornerRadius = 10
         button.setAttributedTitle(NSAttributedString(string: "Search", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15, weight: .heavy)]), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

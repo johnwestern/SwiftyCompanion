@@ -92,7 +92,7 @@ class                       StudentHeaderView: UIView {
         pro.layer.masksToBounds = true
         pro.clipsToBounds = true
         pro.layer.cornerRadius = 11
-        pro.progressTintColor = UIColor(red: 12 / 255, green: 205 / 255, blue: 213 / 255, alpha: 1)
+        pro.progressTintColor = .swifty
         return pro
     }()
     

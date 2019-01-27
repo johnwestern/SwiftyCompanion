@@ -42,7 +42,8 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         fatalError("init(coder:) has not been implemented")
     }
     
-    let cellId = "cellId"
+    private let     cellId = "cellId"
+    private let     skillCellId = "skillCellId"
     
     override func   viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,9 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         tableView?.dataSource = self
         tableView?.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 45, right: 0)
         tableView?.contentOffset = CGPoint(x: 0, y: -headerHeight)
+        
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView?.register(SkillsCell.self, forCellReuseIdentifier: skillCellId)
         tableView?.backgroundColor = .clear
         setupView()
         
@@ -95,15 +98,22 @@ extension       DisplayStudentViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 300.0
+            return 190.0
         }
         return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = "Ceci est un test"
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: skillCellId, for: indexPath) as! SkillsCell
+            cell.skills = student.cursus![0].skills
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+            cell.textLabel?.text = "Ceci est un test"
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

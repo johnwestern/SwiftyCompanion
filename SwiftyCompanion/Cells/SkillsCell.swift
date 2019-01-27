@@ -9,167 +9,24 @@
 import UIKit
 
 class SkillsCell: UITableViewCell {
-
-    let algoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.text = "IA    :"
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let companyLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Comp  :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let creativityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Crea  :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let graphicsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Graph :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    let securityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Secu  :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let objectLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Oobj  :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let rigorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "rigor :"
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let algoLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let companyLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let creativityLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let graphicsLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let securityLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let objectLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let rigorLevelLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
     var skills: [Skill]? {
         didSet {
-            skills?.forEach({ (skill) in
-                guard let id = skill.id, let level = skill.level else { return }
-                switch id {
-                    case 1:
-                        algoLevelLabel.text = levelToString(level)
-                    default:
-                        print("unknown skill")
-                }
-            })
+            setupView()
         }
     }
+    
+    let label: UILabel = {
+        let label = UILabel()
+        
+        label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        label.text = "Skills"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -181,13 +38,23 @@ class SkillsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    fileprivate func levelToString(_ level: Float) -> String {
-        let ent = Int(floor(Double(level)))
-        let percent = level - Float(ent)
-        return "level: " + String(ent) + " - " + String(Int(percent * 100)) + "%"
-    }
-
     fileprivate func setupView() {
+        backgroundColor = .clear
+        let skillsCollectionView = SkillsCollectionView(skills!, .horizontal)
+        skillsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
+        addSubview(label)
+        addSubview(skillsCollectionView)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor),
+            label.heightAnchor.constraint(equalToConstant: 40),
+            skillsCollectionView.topAnchor.constraint(equalTo: label.bottomAnchor),
+            skillsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            skillsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            skillsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }

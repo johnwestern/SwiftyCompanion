@@ -18,6 +18,10 @@
 		79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */; };
 		79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */; };
 		79D9F50221FB4EE000313E3B /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D9F50121FB4EE000313E3B /* SkillsCell.swift */; };
+		79E692AD21FDAC4E00B7DAE5 /* SkillsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E692AC21FDAC4E00B7DAE5 /* SkillsCollectionView.swift */; };
+		79E692AF21FDAD1A00B7DAE5 /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E692AE21FDAD1A00B7DAE5 /* SkillCell.swift */; };
+		79E692B121FDB3A300B7DAE5 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E692B021FDB3A300B7DAE5 /* ProgressCircleView.swift */; };
+		79E692B321FDB3DF00B7DAE5 /* SwiftyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E692B221FDB3DF00B7DAE5 /* SwiftyColor.swift */; };
 		79F54E5321F85C340020A008 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F54E5221F85C340020A008 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +39,10 @@
 		79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesDownloader.swift; sourceTree = "<group>"; };
 		79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStudentViewController.swift; sourceTree = "<group>"; };
 		79D9F50121FB4EE000313E3B /* SkillsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
+		79E692AC21FDAC4E00B7DAE5 /* SkillsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCollectionView.swift; sourceTree = "<group>"; };
+		79E692AE21FDAD1A00B7DAE5 /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
+		79E692B021FDB3A300B7DAE5 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
+		79E692B221FDB3DF00B7DAE5 /* SwiftyColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyColor.swift; sourceTree = "<group>"; };
 		79F54E5221F85C340020A008 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				79D9F50121FB4EE000313E3B /* SkillsCell.swift */,
+				79E692AE21FDAD1A00B7DAE5 /* SkillCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -121,6 +130,8 @@
 			children = (
 				79F54E5221F85C340020A008 /* BackgroundView.swift */,
 				7976B44D21FB372900F8E467 /* StudentHeaderView.swift */,
+				79E692AC21FDAC4E00B7DAE5 /* SkillsCollectionView.swift */,
+				79E692B021FDB3A300B7DAE5 /* ProgressCircleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */,
+				79E692B221FDB3DF00B7DAE5 /* SwiftyColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -205,13 +217,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				7976B44E21FB372900F8E467 /* StudentHeaderView.swift in Sources */,
+				79E692AF21FDAD1A00B7DAE5 /* SkillCell.swift in Sources */,
 				7982899321FB11B000BDEA2B /* LoadingAppController.swift in Sources */,
 				7981A1D621F996970084B088 /* APIManager.swift in Sources */,
+				79E692AD21FDAC4E00B7DAE5 /* SkillsCollectionView.swift in Sources */,
 				7981A1D921F9AEAB0084B088 /* Student.swift in Sources */,
 				79F54E5321F85C340020A008 /* BackgroundView.swift in Sources */,
 				791CC36521F8551500B93228 /* SearchStudentController.swift in Sources */,
 				79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */,
 				79D9F50221FB4EE000313E3B /* SkillsCell.swift in Sources */,
+				79E692B121FDB3A300B7DAE5 /* ProgressCircleView.swift in Sources */,
+				79E692B321FDB3DF00B7DAE5 /* SwiftyColor.swift in Sources */,
 				791CC36321F8551400B93228 /* AppDelegate.swift in Sources */,
 				79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */,
 			);
