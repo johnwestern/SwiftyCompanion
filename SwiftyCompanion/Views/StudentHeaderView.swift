@@ -85,6 +85,16 @@ class                       StudentHeaderView: UIView {
         return label
     }()
     
+    let walletLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let progressBar: UIProgressView = {
         let pro = UIProgressView()
         
@@ -134,6 +144,9 @@ class                       StudentHeaderView: UIView {
             levelLabel.text = "level: " + String(ent) + " - " + String(Int(percent * 100)) + "%"
             progressBar.progress = percent
         }
+        if let wallet = student.wallet {
+            walletLabel.text = String(wallet) + "₳"
+        }
     }
 
     fileprivate func        setupView() {
@@ -147,6 +160,7 @@ class                       StudentHeaderView: UIView {
         addSubview(progressBar)
         addSubview(levelLabel)
         addSubview(gradeLabel)
+        addSubview(walletLabel)
         
         NSLayoutConstraint.activate([
             studImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
@@ -176,8 +190,13 @@ class                       StudentHeaderView: UIView {
             
             gradeLabel.topAnchor.constraint(equalTo: studImageView.bottomAnchor, constant: 10),
             gradeLabel.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),
-            gradeLabel.trailingAnchor.constraint(equalTo: studImageView.trailingAnchor),
+            gradeLabel.trailingAnchor.constraint(equalTo: progressBar.centerXAnchor),
             gradeLabel.heightAnchor.constraint(equalToConstant: 26),
+            
+            walletLabel.topAnchor.constraint(equalTo: studImageView.bottomAnchor, constant: 10),
+            walletLabel.leadingAnchor.constraint(equalTo: gradeLabel.trailingAnchor),
+            walletLabel.trailingAnchor.constraint(equalTo: progressBar.trailingAnchor),
+            walletLabel.heightAnchor.constraint(equalToConstant: 26),
             
             progressBar.topAnchor.constraint(equalTo: gradeLabel.bottomAnchor, constant: 10),
             progressBar.leadingAnchor.constraint(equalTo: studImageView.leadingAnchor),

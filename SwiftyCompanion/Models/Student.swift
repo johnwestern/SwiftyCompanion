@@ -56,10 +56,11 @@ class Student: Codable {
     var phone: String?
     var picture: String?
     var cursus: [Cursus]?
+    var wallet: Int?
     var projects: [Project]?
     
     enum CodingKeys: String, CodingKey {
-        case id, login, email, phone
+        case id, login, email, phone, wallet
         case firstName = "first_name"
         case lastName = "last_name"
         case picture = "image_url"

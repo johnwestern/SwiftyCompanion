@@ -43,7 +43,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         
         button.backgroundColor = .swifty
         button.layer.cornerRadius = 10
-        button.setAttributedTitle(NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .heavy)]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "Search", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15, weight: .heavy)]), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -64,6 +64,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
     
         loginTF.delegate = self
         setupView()
+        print(token)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -88,7 +89,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
                     self.loginTF.resignFirstResponder()
                     let vc = DisplayStudentViewController(frame: self.view.frame, student: student, studentPicture: image, rootVC: self)
                     self.displayVC = vc
-                    self.addChild(vc)
+                    self.addChildViewController(vc)
                     self.view.addSubview(vc.view)
                     vc.view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
                     self.animateEverythingDown()
@@ -109,7 +110,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
             self.background?.logoImageView.transform = CGAffineTransform(translationX: 0, y: -(self.view.frame.height * 0.5 - self.view.frame.height * 0.30))
         }) { (true) in
             self.displayVC?.view.removeFromSuperview()
-            self.displayVC?.removeFromParent()
+            self.displayVC?.removeFromParentViewController()
         }
     }
     

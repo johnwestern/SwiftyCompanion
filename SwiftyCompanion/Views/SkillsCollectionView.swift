@@ -12,7 +12,7 @@ class SkillsCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
     let skills: [Skill]
     private let skillCellId = "skillCellId"
     
-    init(_ skills: [Skill], _ scrollDirection: UICollectionView.ScrollDirection) {
+    init(_ skills: [Skill], _ scrollDirection: UICollectionViewScrollDirection) {
         self.skills = skills
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = scrollDirection
