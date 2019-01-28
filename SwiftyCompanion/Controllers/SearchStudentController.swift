@@ -13,6 +13,8 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
     var             background: BackgroundView?
     private let     headerHeight: CGFloat = 178
     var             tableView: UITableView?
+    var             displayVC: DisplayStudentViewController?
+    var             lockSearch = false
     
     let             loginContainer: UIView = {
         let         iv = UIView()
@@ -70,15 +72,18 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
         return true
     }
     
-    var displayVC: DisplayStudentViewController?
-    var lockSearch = false
-    
     @objc func      handleSearch() {
         guard lockSearch == false else { return }
         lockSearch = true
         if let login = loginTF.text, login != "", !login.contains(" ") {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             APIManager().getStudent(login.lowercased()) { (student) in
-                guard let picURL = student.picture else { print("student badly formatted"); self.lockSearch = false; return }
+                guard let picURL = student.picture else {
+                    print("student badly formatted")
+                    self.lockSearch = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    return
+                }
                 UIImageView().getImageFromURLCacheCompletion(urlString: picURL, completion: { (image) in
                     self.loginTF.resignFirstResponder()
                     let vc = DisplayStudentViewController(frame: self.view.frame, student: student, studentPicture: image, rootVC: self)
@@ -87,6 +92,7 @@ class               SearchStudentController: UIViewController, UITextFieldDelega
                     self.view.addSubview(vc.view)
                     vc.view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height)
                     self.animateEverythingDown()
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
             }
         } else {

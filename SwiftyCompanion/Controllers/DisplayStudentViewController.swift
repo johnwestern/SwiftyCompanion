@@ -74,6 +74,7 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
             self.view.transform =  CGAffineTransform(translationX: 0, y: self.view.frame.height)
         }) { (true) in
+            self.rootVC.lockSearch = false
             self.rootVC.animateEverythingBackUp()
         }
     }
@@ -93,10 +94,10 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         }
         var projs: [EZProject] = []
         projects.forEach { (project) in
-            if project.cursusIds![0] == 1, let mark = project.finalMark {
+            if project.cursusIds != nil, project.cursusIds!.count > 0, project.cursusIds![0] == 1, let mark = project.finalMark {
                 let proj = EZProject()
                 proj.finalMark = mark
-                proj.name = project.project!.name
+                proj.name = project.project?.name
                 proj.id = project.id
                 proj.valid = project.validated
                 projs.append(proj)
@@ -180,10 +181,13 @@ extension       DisplayStudentViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let proj = projects {
+        if let proj = projects, proj.count > 0 {
             return 2 + proj.count
         }
-        return 1
+        if student.cursus != nil, student.cursus!.count > 0, student.cursus![0].skills.count > 0 {
+            return 1
+        }
+        return 0
     }
     
 }
