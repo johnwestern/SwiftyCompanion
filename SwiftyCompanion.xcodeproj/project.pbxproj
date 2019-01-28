@@ -16,6 +16,7 @@
 		7981A1D921F9AEAB0084B088 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7981A1D821F9AEAB0084B088 /* Student.swift */; };
 		7982899321FB11B000BDEA2B /* LoadingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7982899221FB11B000BDEA2B /* LoadingAppController.swift */; };
 		79C0EAD021F9057D000671C2 /* ImagesDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */; };
+		79C2AF1D21FE7FA3006D54C1 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C2AF1C21FE7FA3006D54C1 /* ProjectCell.swift */; };
 		79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */; };
 		79D9F50221FB4EE000313E3B /* SkillsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D9F50121FB4EE000313E3B /* SkillsCell.swift */; };
 		79E692AD21FDAC4E00B7DAE5 /* SkillsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E692AC21FDAC4E00B7DAE5 /* SkillsCollectionView.swift */; };
@@ -37,6 +38,7 @@
 		7981A1D821F9AEAB0084B088 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		7982899221FB11B000BDEA2B /* LoadingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAppController.swift; sourceTree = "<group>"; };
 		79C0EACF21F9057D000671C2 /* ImagesDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesDownloader.swift; sourceTree = "<group>"; };
+		79C2AF1C21FE7FA3006D54C1 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		79CD561521FA0F0200EEA7B9 /* DisplayStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStudentViewController.swift; sourceTree = "<group>"; };
 		79D9F50121FB4EE000313E3B /* SkillsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCell.swift; sourceTree = "<group>"; };
 		79E692AC21FDAC4E00B7DAE5 /* SkillsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillsCollectionView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				79D9F50121FB4EE000313E3B /* SkillsCell.swift */,
 				79E692AE21FDAD1A00B7DAE5 /* SkillCell.swift */,
+				79C2AF1C21FE7FA3006D54C1 /* ProjectCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -172,11 +175,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Jonathan DAVIN";
 				TargetAttributes = {
 					791CC35E21F8551400B93228 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -229,6 +233,7 @@
 				79E692B121FDB3A300B7DAE5 /* ProgressCircleView.swift in Sources */,
 				79E692B321FDB3DF00B7DAE5 /* SwiftyColor.swift in Sources */,
 				791CC36321F8551400B93228 /* AppDelegate.swift in Sources */,
+				79C2AF1D21FE7FA3006D54C1 /* ProjectCell.swift in Sources */,
 				79CD561621FA0F0200EEA7B9 /* DisplayStudentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +266,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -268,6 +274,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -318,6 +325,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -325,6 +333,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -364,7 +373,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = intern.SwiftyCompanion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -379,7 +388,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = intern.SwiftyCompanion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

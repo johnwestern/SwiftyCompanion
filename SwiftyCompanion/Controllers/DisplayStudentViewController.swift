@@ -12,9 +12,15 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
 
     let             studentPicture: UIImage
     let             student: Student
+    var             projects: [EZProject]?
     let             rootVC: SearchStudentController
     var             studentHeaderView: StudentHeaderView?
     var             tableView: UITableView?
+    private let     cellId = "cellId"
+    private let     skillCellId = "skillCellId"
+    private let     projectCellId = "projectCellId"
+    var             maxOffset: CGFloat = -240.0
+    
     
     let             headerHeight: CGFloat = 224
     
@@ -34,7 +40,7 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         self.studentPicture = studentPicture
         self.rootVC = rootVC
         super.init(nibName: nil, bundle: nil)
-        
+        self.projects = formatStudentProjects(student: student)
         view.frame = frame
     }
     
@@ -42,23 +48,22 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let     cellId = "cellId"
-    private let     skillCellId = "skillCellId"
-    var             maxOffset: CGFloat = -240.0
+    
     
     override func   viewDidLoad() {
         super.viewDidLoad()
-        
         tableView = UITableView(frame: view.frame)
         tableView?.separatorStyle = .none
         tableView?.alwaysBounceVertical = true
         tableView?.delegate = self
         tableView?.dataSource = self
+        tableView?.allowsSelection = false
         tableView?.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 45, right: 0)
         tableView?.contentOffset = CGPoint(x: 0, y: -headerHeight)
         
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView?.register(SkillsCell.self, forCellReuseIdentifier: skillCellId)
+        tableView?.register(ProjectCell.self, forCellReuseIdentifier: projectCellId)
         tableView?.backgroundColor = .clear
         
         setupView()
@@ -78,11 +83,30 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
         visualEffectView.isUserInteractionEnabled = false
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        visualEffectView.alpha = 0.8
         return visualEffectView
     }()
     
+    func            formatStudentProjects(student: Student) -> [EZProject] {
+        guard let projects = student.projects else {
+            return []
+        }
+        var projs: [EZProject] = []
+        projects.forEach { (project) in
+            if project.cursusIds![0] == 1, let mark = project.finalMark {
+                let proj = EZProject()
+                proj.finalMark = mark
+                proj.name = project.project!.name
+                proj.id = project.id
+                proj.valid = project.validated
+                projs.append(proj)
+            }
+        }
+        return projs
+    }
+    
     func            setupView() {
-        studentHeaderView = StudentHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 168), studentPic: studentPicture, student: student)
+        studentHeaderView = StudentHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 240), studentPic: studentPicture, student: student)
         studentHeaderView?.translatesAutoresizingMaskIntoConstraints = false
         studentHeaderView?.clipsToBounds = true
         
@@ -98,12 +122,12 @@ class               DisplayStudentViewController: UIViewController, UITableViewD
             downButton.widthAnchor.constraint(equalToConstant: 40),
             downButton.heightAnchor.constraint(equalToConstant: 40),
             
-            studentHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            studentHeaderView!.topAnchor.constraint(equalTo: view.topAnchor),
             studentHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             studentHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            studentHeaderView!.heightAnchor.constraint(equalToConstant: 168),
+            studentHeaderView!.heightAnchor.constraint(equalToConstant: 240),
             
-            coverView.topAnchor.constraint(equalTo: studentHeaderView!.topAnchor),
+            coverView.topAnchor.constraint(equalTo: studentHeaderView!.topAnchor, constant: -studentHeaderView!.frame.minY),
             coverView.bottomAnchor.constraint(equalTo: studentHeaderView!.bottomAnchor),
             coverView.leadingAnchor.constraint(equalTo: studentHeaderView!.leadingAnchor),
             coverView.trailingAnchor.constraint(equalTo: studentHeaderView!.trailingAnchor)
@@ -125,8 +149,6 @@ extension       DisplayStudentViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard tableView != nil, studentHeaderView != nil else { return }
-        print(coverView.frame.minY)
-        print(-maxOffset + (maxOffset - tableView!.contentOffset.y) - studentHeaderView!.frame.minY)
         var delta = -maxOffset + (maxOffset - tableView!.contentOffset.y) - studentHeaderView!.frame.minY
         delta = delta < 0 ? 0 : delta
         coverView.transform = CGAffineTransform(translationX: 0, y: delta)
@@ -138,9 +160,17 @@ extension       DisplayStudentViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: skillCellId, for: indexPath) as! SkillsCell
             cell.skills = student.cursus![0].skills
             return cell
-        default:
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-            cell.textLabel?.text = "Ceci est un test"
+            cell.textLabel?.text = "Projects"
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+            cell.textLabel?.textColor = .white
+            cell.backgroundColor = .clear
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: projectCellId, for: indexPath) as! ProjectCell
+            cell.project = projects![indexPath.row - 2]
             return cell
         }
     }
@@ -150,6 +180,9 @@ extension       DisplayStudentViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let proj = projects {
+            return 2 + proj.count
+        }
         return 1
     }
     

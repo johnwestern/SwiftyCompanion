@@ -34,10 +34,6 @@ class SkillsCell: UITableViewCell {
         setupView()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     var skillsCollectionView: SkillsCollectionView?
     
     fileprivate func setupView() {

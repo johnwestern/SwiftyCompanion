@@ -74,9 +74,9 @@ class                   BackgroundView: UIView
         
         self.animateLogoUp()
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            self.blurEffectView.alpha = 0.9
+            self.blurEffectView.alpha = 0.75
             self.backgroundImageView.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-            self.backgroundImageView.rotate360Degrees(duration: 100)
+            self.backgroundImageView.rotate360Degrees(duration: 90)
         })
     }
     

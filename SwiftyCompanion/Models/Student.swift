@@ -20,6 +20,33 @@ class Cursus: Codable {
     var skills: [Skill]
 }
 
+class ProjectDetail: Codable {
+    var id: Int?
+    var name: String?
+}
+
+class EZProject: NSObject {
+    var id: Int?
+    var finalMark: Int?
+    var name: String?
+    var valid: Bool?
+}
+
+class Project: Codable {
+    var id: Int?
+    var cursusIds: [Int]?
+    var finalMark: Int?
+    var project: ProjectDetail?
+    var validated: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, project
+        case cursusIds = "cursus_ids"
+        case finalMark = "final_mark"
+        case validated = "validated?"
+    }
+}
+
 class Student: Codable {
     var id: Int?
     var login: String?
@@ -29,6 +56,7 @@ class Student: Codable {
     var phone: String?
     var picture: String?
     var cursus: [Cursus]?
+    var projects: [Project]?
     
     enum CodingKeys: String, CodingKey {
         case id, login, email, phone
@@ -36,5 +64,6 @@ class Student: Codable {
         case lastName = "last_name"
         case picture = "image_url"
         case cursus = "cursus_users"
+        case projects = "projects_users"
     }
 }

@@ -149,7 +149,7 @@ class                       StudentHeaderView: UIView {
         addSubview(gradeLabel)
         
         NSLayoutConstraint.activate([
-            studImageView.topAnchor.constraint(equalTo: topAnchor),
+            studImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
             studImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
             studImageView.widthAnchor.constraint(equalToConstant: 100),
             studImageView.heightAnchor.constraint(equalToConstant: 100),
